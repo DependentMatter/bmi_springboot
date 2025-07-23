@@ -1,0 +1,25 @@
+# Backend Dockerfile
+FROM openjdk:17-jdk-alpine as backend
+WORKDIR /app
+COPY target/myWebSite-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+# Frontend Dockerfile (multi-stage example, place in frontend/Dockerfile)
+# FROM node:18-alpine as build
+# WORKDIR /app
+# COPY frontend/package.json frontend/package-lock.json ./
+# RUN npm install
+# COPY frontend/ ./
+# RUN npm run build
+#
+# FROM nginx:alpine
+# COPY --from=build /app/build /usr/share/nginx/html
+# EXPOSE 80
+# CMD ["nginx", "-g", "daemon off;"]
+
+# Steps to build and run:
+# 1. Build backend jar: mvn clean package -DskipTests
+# 2. Build backend image: docker build -t bmi-backend:latest .
+# 3. Build frontend image (from frontend/): docker build -t bmi-frontend:latest -f frontend/Dockerfile frontend
+# 4. Run containers or load into your cluster as needed.
