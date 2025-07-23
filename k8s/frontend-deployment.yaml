@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bmi-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bmi-frontend
+  template:
+    metadata:
+      labels:
+        app: bmi-frontend
+    spec:
+      containers:
+      - name: bmi-frontend
+        image: your-dockerhub-username/bmi-frontend:latest
+        ports:
+        - containerPort: 3000

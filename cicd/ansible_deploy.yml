@@ -1,0 +1,38 @@
+---
+- name: Deploy BMI Microservices to Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Apply MySQL Secret
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/mysql-secret.yaml
+
+    - name: Apply MySQL StatefulSet
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/mysql-statefulset.yaml
+
+    - name: Apply MySQL Service
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/service-mysql.yaml
+
+    - name: Apply Backend Deployment
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/backend-deployment.yaml
+
+    - name: Apply Backend Service
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/service-backend.yaml
+
+    - name: Apply Frontend Deployment
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/frontend-deployment.yaml
+
+    - name: Apply Frontend Service
+      kubernetes.core.k8s:
+        state: present
+        src: ../k8s/service-frontend.yaml

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bmi-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bmi-backend
+  template:
+    metadata:
+      labels:
+        app: bmi-backend
+    spec:
+      containers:
+      - name: bmi-backend
+        image: your-dockerhub-username/bmi-backend:latest
+        ports:
+        - containerPort: 8081
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
